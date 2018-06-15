@@ -19,6 +19,13 @@ import javax.persistence.Query;
  */
 public class PartieDAO {
 
+    public void ajouter(Partie p) {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
+    }
+
     public List<Partie> listerPartieNonDemarrees() {
 
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
@@ -31,12 +38,17 @@ public class PartieDAO {
                 + "FROM Parie p"
                 + "     JOIN p.joueurs j "
                 + "WHERE j.etat IN (:etat_gagne,:etat_alamain)");
-               
+
         query.setParameter("etat_gagne", Joueur.EtatJoueur.GAGNE);
         query.setParameter("etat_alamain", Joueur.EtatJoueur.A_LA_MAIN);
-                
-                
+
         return query.getResultList();
+    }
+
+ 
+    public Partie rechercheParId(long idPartie) {
+         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        return em.find(Partie.class, idPartie);
     }
 
 }
