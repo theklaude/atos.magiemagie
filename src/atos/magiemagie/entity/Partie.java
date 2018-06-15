@@ -30,7 +30,7 @@ public class Partie implements Serializable {
     @Column(nullable = false)
     private String nom;
     
-    @OneToMany(mappedBy ="partieActuelle")
+    @OneToMany(mappedBy ="partie")
     private List<Joueur> joueurs = new ArrayList<>();
 
     public Long getId() {
@@ -41,6 +41,23 @@ public class Partie implements Serializable {
         this.id = id;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public List<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+    public void setJoueurs(List<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

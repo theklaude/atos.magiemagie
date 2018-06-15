@@ -5,10 +5,9 @@
  */
 package atos.magiemagie.test;
 
-import atos.magiemagie.entity.Joueur;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import atos.magiemagie.entity.Partie;
+import atos.magiemagie.service.PartieService;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -17,17 +16,14 @@ import org.junit.Test;
  */
 public class MagieTest {
 
-   @Test
-   public void ajouteCarte(){
-       EntityManagerFactory factory = Persistence.createEntityManagerFactory("PU");
-       EntityManager em = factory.createEntityManager();
-       
-       Joueur player1 = new Joueur();
-       player1.setPseudo("Yuura");
-       
-       em.getTransaction().begin();
-       em.persist(player1);
-       em.getTransaction().commit();
-   }
-    
+    private PartieService service = new PartieService();
+
+    //@Test
+    public void creerNouvellePartieOK() {
+        Partie p;
+        p = service.creerNouvellePartie("Blabla");
+        assertNotNull(p.getId());
+
+    }
+
 }

@@ -6,6 +6,7 @@
 package atos.magiemagie.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,12 +26,19 @@ public class Carte implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private enum ingredients{BAVE_CRAPAUD, CORNE_LICORNE, MANDRAGORE, LAPIS_LAZULI, AILE_CHAUVE_SOURIS};
-    
+
+    public enum ingredients {
+        BAVE_CRAPAUD,
+        CORNE_LICORNE,
+        MANDRAGORE,
+        LAPIS_LAZULI,
+        AILE_CHAUVE_SOURIS
+    };
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ingredients typeCarte;
-    
+
     @ManyToOne
     private Joueur joueur;
 
@@ -50,7 +58,6 @@ public class Carte implements Serializable {
     }
 
     //Getter Setter
-
     public Joueur getJoueur() {
         return joueur;
     }
@@ -58,9 +65,7 @@ public class Carte implements Serializable {
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
-    
-    
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -78,5 +83,5 @@ public class Carte implements Serializable {
     public String toString() {
         return "atos.magiemagie.entity.Carte[ id=" + id + " ]";
     }
-    
+
 }
