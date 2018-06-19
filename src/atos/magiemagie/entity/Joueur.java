@@ -29,7 +29,7 @@ public class Joueur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idJoueur;
 
     @Column(unique = true)
     private String pseudo;
@@ -65,12 +65,12 @@ public class Joueur implements Serializable {
     @Column(nullable = false)
     private Long ordre;
 
-    public Long getId() {
-        return id;
+    public Long getIdJoueur() {
+        return idJoueur;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdJoueur(Long idJoueur) {
+        this.idJoueur = idJoueur;
     }
 
     public String getPseudo() {
@@ -142,18 +142,18 @@ public class Joueur implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idJoueur != null ? idJoueur.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the idJoueur fields are not set
         if (!(object instanceof Joueur)) {
             return false;
         }
         Joueur other = (Joueur) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idJoueur == null && other.idJoueur != null) || (this.idJoueur != null && !this.idJoueur.equals(other.idJoueur))) {
             return false;
         }
         return true;
@@ -161,7 +161,7 @@ public class Joueur implements Serializable {
 
     @Override
     public String toString() {
-        return "atos.magiemagie.entity.Joueur[ id=" + id + " ]";
+        return "atos.magiemagie.entity.Joueur[ id=" + idJoueur + " ]";
     }
 
 }

@@ -8,7 +8,6 @@ package atos.magiemagie.dao;
 import atos.magiemagie.entity.Joueur;
 import atos.magiemagie.entity.Partie;
 import java.util.List;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -19,12 +18,21 @@ import javax.persistence.Query;
  */
 public class PartieDAO {
 
+    public void updatePartie(Partie p) {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        em.getTransaction().begin();
+        em.merge(p);
+        em.getTransaction().commit();
+    }
+
     public void ajouter(Partie p) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
     }
+    
+    
 
     public List<Partie> listerPartieNonDemarrees() {
 
@@ -45,9 +53,8 @@ public class PartieDAO {
         return query.getResultList();
     }
 
- 
-    public Partie rechercheParId(long idPartie) {
-         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+    public Partie recherchePartieId(long idPartie) {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         return em.find(Partie.class, idPartie);
     }
 

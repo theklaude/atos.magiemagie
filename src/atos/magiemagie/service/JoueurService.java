@@ -5,6 +5,7 @@
  */
 package atos.magiemagie.service;
 
+import atos.magiemagie.dao.CarteDAO;
 import atos.magiemagie.dao.JoueurDAO;
 import atos.magiemagie.dao.PartieDAO;
 import atos.magiemagie.entity.Joueur;
@@ -19,8 +20,11 @@ public class JoueurService {
 
     private JoueurDAO joueurDAO = new JoueurDAO();
     private PartieDAO partieDAO = new PartieDAO();
+    private CarteService carteServ = new CarteService();
+    private CarteDAO carteDAO = new CarteDAO();
+           
 
-    public void rejoindrePartie(String pseudo, String avatar, long idPartie) {
+    public Joueur rejoindrePartie(String pseudo, String avatar, long idPartie) {
         //Recherche si joueur existe déjà
         Joueur joueur = joueurDAO.rechercherParPseudo(pseudo);
         if (joueur == null) {
@@ -34,18 +38,37 @@ public class JoueurService {
         joueur.setEtat(Joueur.EtatJoueur.PAS_LA_MAIN);
         long ordre = joueurDAO.rechercheOrdreNouveauJoueurPourPartie(idPartie);
         joueur.setOrdre(ordre);
-        
+
         //Associe le joueur à la partie et vice-versa (JPA relations bidirectionnelles
-        Partie partie = partieDAO.rechercheParId(idPartie);
+        Partie partie = partieDAO.recherchePartieId(idPartie);
         joueur.setPartie(partie);
         List<Joueur> listeJoueurs = partie.getJoueurs();
         listeJoueurs.add(joueur);
-        
-        if (joueur.getId()==null){
+
+        if (joueur.getIdJoueur() == null) {
             joueurDAO.ajouter(joueur);
-        }else{
+        } else {
             joueurDAO.modifier(joueur);
         }
+        return joueur;
     }
 
+    public void joueurSuiv(Long partieId, Long idJoueur){
+       Partie p;
+       Joueur j = null;
+       if (j.getEtatJoueur()=="A_LA_MAIN"){
+           
+       }
+       
+        
+        
+    }
+    public void passerMain(long idJoueur){
+        
+        carteServ.distribuerUneCarteAleatoirement(idJoueur);
+
+        
+        
+    }
+    
 }
