@@ -27,6 +27,15 @@ public class Partie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    public enum Sort {
+        INVISIBILITE,
+        HYPNOSE,
+        DIVINATION,
+        SOMMEIL_PROFOND,
+        PHILTRE_AMOUR
+    };
+    
+    
     @Column(nullable = false)
     private String nom;
     

@@ -50,15 +50,10 @@ public class Main {
                     for (Partie p2 : partiesNonDemarrees) {
                         System.out.println(" - " + p2.getNom() + ": d'ID: " + p2.getId());
                     }
-                    
                     System.out.println("Donnez l'ID de la partie que vous voulez rejoindre");
                     long idPartie = new Long(s.nextLine());
-                    
                     System.out.println("Entrez votre pseudo: ");
                     String pseudo = s.nextLine();
-                    
-                    System.out.println("*******************************************************");
-                    
                     System.out.println("Entrez votre avatar: ");
                     String avatar = s.nextLine();
                     
@@ -72,7 +67,7 @@ public class Main {
                         System.out.println(" - " + p2.getNom() + ": Son ID pour la rejoindre est : " + p2.getId());
                     }
                     System.out.println("Donnez l'ID de la partie que vous voulez rejoindre");
-                    idPartie = s.nextLong();
+                    idPartie = new Long(s.nextLine());
                     partieService.demarrerPartie(idPartie);
                     break;
                 case "Q":

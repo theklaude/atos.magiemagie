@@ -30,5 +30,16 @@ public class CarteService {
         carteDao.ajouterCarte(c);
 
     }
+    
+    public void prendreUneCarteAleatoirement(long joueurId) {
+        Joueur j = dao.rechercherParId(joueurId);
+        Carte c = new Carte();
+        int pick = new Random().nextInt(c.typeCarte.values().length);
+        c.setTypeCarte(Carte.Ingredients.values()[pick]);
+        j.getCartes().add(c);
+        c.setJoueur(j);
+        carteDao.ajouterCarte(c);
+
+    }
 
 }

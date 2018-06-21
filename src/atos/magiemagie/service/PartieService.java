@@ -7,8 +7,10 @@ package atos.magiemagie.service;
 
 import atos.magiemagie.dao.JoueurDAO;
 import atos.magiemagie.dao.PartieDAO;
+import atos.magiemagie.entity.Carte;
 import atos.magiemagie.entity.Joueur;
 import atos.magiemagie.entity.Partie;
+import atos.magiemagie.entity.Partie.Sort;
 import java.util.List;
 
 /**
@@ -20,6 +22,58 @@ public class PartieService {
     private PartieDAO pdao = new PartieDAO();
     private JoueurDAO jdao = new JoueurDAO();
     private CarteService carteServ = new CarteService();
+
+    public Sort choixSort(Carte.Ingredients ing1, Carte.Ingredients ing2) {
+        Sort s = null;
+        if (ing1 == Carte.Ingredients.CORNE_LICORNE && ing2 == Carte.Ingredients.BAVE_CRAPAUD) {
+            s = Sort.INVISIBILITE;
+        }
+        if (ing1 == Carte.Ingredients.CORNE_LICORNE && ing2 == Carte.Ingredients.MANDRAGORE) {
+            s = Sort.PHILTRE_AMOUR;
+        }
+        if (ing1 == Carte.Ingredients.BAVE_CRAPAUD && ing2 == Carte.Ingredients.LAPIS_LAZULI) {
+            s = Sort.HYPNOSE;
+        }
+        if (ing1 == Carte.Ingredients.LAPIS_LAZULI && ing2 == Carte.Ingredients.AILE_CHAUVE_SOURIS) {
+            s = Sort.DIVINATION;
+        }
+        if (ing1 == Carte.Ingredients.MANDRAGORE && ing2 == Carte.Ingredients.AILE_CHAUVE_SOURIS) {
+            s = Sort.SOMMEIL_PROFOND;
+        }
+        return s;
+
+    }
+
+    public void lanceSort(long idLanceur, Long idVictime, Sort s) {
+        switch (s) {
+            case INVISIBILITE: //tu prend une carte(au hasard) chez tous ses adversaires
+                
+                break;
+            case PHILTRE_AMOUR: //le joueur de votre choix vous donne la moitié de ses cartes(au hasard). S’il ne possède qu’une carte il a perdu
+                
+
+                break;
+            case HYPNOSE: //tu échanges une carte de son choix contre trois cartes(au hasard) de la victime que tu choisis
+
+                break;
+            case DIVINATION: //tu peux voir les cartes de tous les autres joueurs
+
+                break;
+            case SOMMEIL_PROFOND: //tu choisis une victime qui ne pourra pas lancer de sorts pendant 2 tours
+
+                break;
+            default:
+
+                break;
+
+        }
+    
+
+    
+
+    
+
+    
 
     public void passeJoueurSuivant(long idPartie) {
 
