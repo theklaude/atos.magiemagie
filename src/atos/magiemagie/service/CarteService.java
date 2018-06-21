@@ -31,7 +31,7 @@ public class CarteService {
 
     }
     
-    public void prendreUneCarteAleatoirement(long joueurId) {
+    public void prendreUneCarteAleatoirement(long jLanceur, long jVictime) {
         Joueur j = dao.rechercherParId(joueurId);
         Carte c = new Carte();
         int pick = new Random().nextInt(c.typeCarte.values().length);
