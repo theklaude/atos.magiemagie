@@ -18,6 +18,39 @@ import javax.persistence.Query;
  */
 public class PartieDAO {
 
+    public long rechercheOrdreMaxJoueurPourPartieId(long partieId) {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        Query q = em.createQuery("SELECT MAX(j.ordre) FROM Joueur j JOIN j.partie p WHERE p.id:=id");
+        q.setParameter("id", partieId);
+        return (long) q.getSingleResult();
+
+    }
+
+    public boolean determineSiPlusQueUnJoueurDansLaPartie(long partieId) {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        Query q = em.createQuery(""
+                + "SELECT    j "
+                + "FROM      Joueur j "
+                + "          JOIN j.partie p "
+                + "WHERE     p.id:=idPartie "
+                + "EXCEPT "
+                + "SELECT    j "
+                + "FROM      Joueur j "
+                + "          JOIN j.partie p "
+                + "WHERE     p.id=:idPartie "
+                + "          AND j.etat=:etatPerdu");
+        q.setParameter("idPartie", partieId);
+        q.setParameter("etatPerdu", Joueur.EtatJoueur.PERDU);
+        List res = q.getResultList();
+
+//        if (res.size() == 1) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return res.size() == 1;
+    }
+
     public void updatePartie(Partie p) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
@@ -31,8 +64,6 @@ public class PartieDAO {
         em.persist(p);
         em.getTransaction().commit();
     }
-    
-    
 
     public List<Partie> listerPartieNonDemarrees() {
 
@@ -40,12 +71,12 @@ public class PartieDAO {
 
         Query query = (Query) em.createQuery(""
                 + "SELECT p "
-                + "FROM Parie p"
-                + "EXCEPT"
+                + "FROM Partie p "
+                + "EXCEPT "
                 + "SELECT p "
-                + "FROM Parie p"
+                + "FROM Partie p "
                 + "     JOIN p.joueurs j "
-                + "WHERE j.etat IN (:etat_gagne,:etat_alamain)");
+                + "WHERE j.etatJoueur IN (:etat_gagne,:etat_alamain)");
 
         query.setParameter("etat_gagne", Joueur.EtatJoueur.GAGNE);
         query.setParameter("etat_alamain", Joueur.EtatJoueur.A_LA_MAIN);

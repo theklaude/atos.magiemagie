@@ -17,6 +17,27 @@ import javax.persistence.Query;
  */
 public class JoueurDAO {
 
+    public Joueur rechercheJoueurParPartieIdEtOrdre(long idPartie, long ordre) {
+       EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        Query q = em.createQuery("SELECT j FROM Joueur j JOIN j.partie p WHERE p.id=:partieId AND j.ordre=:ordre");
+        q.setParameter("partieId",idPartie);
+        q.setParameter("ordre", ordre);
+        return (Joueur) q.getSingleResult(); 
+        
+     
+
+    }
+    
+    
+    public Joueur rechercheJoueurQuiALaMainPourPartieId(long partieId) {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        Query query = em.createQuery("SELECT j FROM Joueur j JOIN j.partie p WHERE j.etatJoueur=:etat AND p.id:=idPart");
+        query.setParameter("etat", Joueur.EtatJoueur.A_LA_MAIN);
+        query.setParameter("idPart", partieId);
+        Joueur j = (Joueur) query.getSingleResult();
+        return j;
+    }
+
     public long nbreJoueur(long partieId) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
 
@@ -28,11 +49,10 @@ public class JoueurDAO {
         query.setParameter("idPartie", partieId);
 
         Object nbre = query.getSingleResult();
-       
+
         return (Integer) nbre;
     }
 
-    
     public long rechercheOrdreNouveauJoueurPourPartie(long partieId) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
 
@@ -75,7 +95,6 @@ public class JoueurDAO {
         return joueursTrouves.get(0);
     }
 
-    
     public void ajouter(Joueur j) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
@@ -83,7 +102,6 @@ public class JoueurDAO {
         em.getTransaction().commit();
     }
 
-    
     public void modifier(Joueur j) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
@@ -91,21 +109,18 @@ public class JoueurDAO {
         em.getTransaction().commit();
     }
 
-    
     public void updateJoueur(Joueur j) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         em.getTransaction().begin();
         em.merge(j);
         em.getTransaction().commit();
     }
-    
-    
+
     public Joueur rechercherParId(long joueurId) {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
         return em.find(Joueur.class, joueurId);
     }
+
     
-    
-    
-    
+
 }

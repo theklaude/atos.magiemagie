@@ -26,7 +26,7 @@
       <fontname>Dialog</fontname>
       <fontsize>12</fontsize>
       <defaultstereotypeview>0</defaultstereotypeview>
-      <activediagram>démarrerPartie</activediagram>
+      <activediagram>Diagramme de cas d&apos;utilisation</activediagram>
     </settings>
     <searchpath href="PROJECT_DIR" />
     <members>
@@ -51,9 +51,13 @@
               diagramclass="org.argouml.uml.diagram.activity.ui.UMLActivityDiagram"
               diagramname="rejoindrePartie" />
       <member type="pgml"
-              name="Magie-Magie_untitledModelactivity2.pgml"
+              name="Magie-Magie_démarrerPartie.pgml"
               diagramclass="org.argouml.uml.diagram.activity.ui.UMLActivityDiagram"
               diagramname="démarrerPartie" />
+      <member type="pgml"
+              name="Magie-Magie_détermineJoueurSuivant.pgml"
+              diagramclass="org.argouml.uml.diagram.activity.ui.UMLActivityDiagram"
+              diagramname="détermineJoueurSuivant" />
       <member type="todo"
               name="Magie-Magie.todo" />
     </members>
@@ -70,7 +74,7 @@
 			CodeGeneration
 		</plugin>
 </profile>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Mon Jun 18 17:14:21 CEST 2018'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Jun 20 14:34:59 CEST 2018'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
@@ -1392,7 +1396,11 @@
                   </UML:StateVertex.outgoing>
                 </UML:Pseudostate>
                 <UML:FinalState xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B41'
-                  isSpecification = 'false'/>
+                  isSpecification = 'false'>
+                  <UML:StateVertex.incoming>
+                    <UML:Transition xmi.idref = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B59'/>
+                  </UML:StateVertex.incoming>
+                </UML:FinalState>
                 <UML:ActionState xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B42'
                   isSpecification = 'false' isDynamic = 'false'>
                   <UML:StateVertex.outgoing>
@@ -1413,6 +1421,9 @@
                 </UML:ActionState>
                 <UML:ActionState xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B48'
                   isSpecification = 'false' isDynamic = 'false'>
+                  <UML:StateVertex.outgoing>
+                    <UML:Transition xmi.idref = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B59'/>
+                  </UML:StateVertex.outgoing>
                   <UML:StateVertex.incoming>
                     <UML:Transition xmi.idref = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B54'/>
                   </UML:StateVertex.incoming>
@@ -1502,8 +1513,29 @@
                 <UML:ActionState xmi.idref = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B4B'/>
               </UML:Transition.target>
             </UML:Transition>
+            <UML:Transition xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B59'
+              isSpecification = 'false'>
+              <UML:Transition.source>
+                <UML:ActionState xmi.idref = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B48'/>
+              </UML:Transition.source>
+              <UML:Transition.target>
+                <UML:FinalState xmi.idref = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B41'/>
+              </UML:Transition.target>
+            </UML:Transition>
           </UML:StateMachine.transitions>
         </UML:ActivityGraph>
+        <UML:ActivityGraph xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B5A'
+          name = '' isSpecification = 'false'>
+          <UML:StateMachine.context>
+            <UML:Model xmi.idref = '10--118-100-36-229791fb:163f918f3ac:-8000:0000000000000865'/>
+          </UML:StateMachine.context>
+          <UML:StateMachine.top>
+            <UML:CompositeState xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B5B'
+              name = 'top' isSpecification = 'false' isConcurrent = 'false'/>
+          </UML:StateMachine.top>
+        </UML:ActivityGraph>
+        <UML:SignalEvent xmi.id = '10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B6A'
+          name = 'ordre joueur qui a la main &gt;= ordre MAX' isSpecification = 'false'/>
       </UML:Namespace.ownedElement>
     </UML:Model>
   </XMI.content>
@@ -2776,7 +2808,7 @@ PERDU</text>
        description="org.argouml.uml.diagram.use_case.ui.FigUseCase[40, 272, 118, 44]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="10--118-100-36--4b527b52:163fdc228b1:-8000:0000000000000A9E"
        fill="1"
-       fillcolor="white"
+       fillcolor="0 204 51"
        stroke="1"
        strokecolor="black"
   >
@@ -2789,7 +2821,7 @@ PERDU</text>
       rx="59"
       ry="22"
       fill="1"
-      fillcolor="white"
+      fillcolor="0 204 51"
       stroke="1"
       strokecolor="black"
     />
@@ -2968,7 +3000,7 @@ PERDU</text>
        description="org.argouml.uml.diagram.use_case.ui.FigUseCase[344, 112, 118, 44]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="10--118-100-36--4b527b52:163fdc228b1:-8000:0000000000000AAD"
        fill="1"
-       fillcolor="white"
+       fillcolor="0 204 51"
        stroke="1"
        strokecolor="black"
   >
@@ -2981,7 +3013,7 @@ PERDU</text>
       rx="59"
       ry="22"
       fill="1"
-      fillcolor="white"
+      fillcolor="0 204 51"
       stroke="1"
       strokecolor="black"
     />
@@ -3064,7 +3096,7 @@ PERDU</text>
        description="org.argouml.uml.diagram.use_case.ui.FigUseCase[56, 424, 260, 74]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="10--118-100-36--4b527b52:163fdc228b1:-8000:0000000000000AB1"
        fill="1"
-       fillcolor="200 255 255"
+       fillcolor="0 204 51"
        stroke="1"
        strokecolor="black"
   >
@@ -3077,7 +3109,7 @@ PERDU</text>
       rx="130"
       ry="37"
       fill="1"
-      fillcolor="200 255 255"
+      fillcolor="0 204 51"
       stroke="1"
       strokecolor="black"
     />
@@ -3160,7 +3192,7 @@ PERDU</text>
        description="org.argouml.uml.diagram.use_case.ui.FigUseCase[144, 136, 188, 58]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="10--118-100-36--4b527b52:163fdc228b1:-8000:0000000000000AB5"
        fill="1"
-       fillcolor="200 255 255"
+       fillcolor="0 204 51"
        stroke="1"
        strokecolor="black"
   >
@@ -3173,7 +3205,7 @@ PERDU</text>
       rx="94"
       ry="29"
       fill="1"
-      fillcolor="200 255 255"
+      fillcolor="0 204 51"
       stroke="1"
       strokecolor="black"
     />
@@ -3256,7 +3288,7 @@ PERDU</text>
        description="org.argouml.uml.diagram.use_case.ui.FigUseCase[40, 200, 142, 50]pathVisible=false;stereotypeView=0;extensionPointVisible=false"
        href="10--118-100-36--4b527b52:163fdc228b1:-8000:0000000000000AB6"
        fill="1"
-       fillcolor="200 255 255"
+       fillcolor="0 204 51"
        stroke="1"
        strokecolor="black"
   >
@@ -3269,7 +3301,7 @@ PERDU</text>
       rx="71"
       ry="25"
       fill="1"
-      fillcolor="200 255 255"
+      fillcolor="0 204 51"
       stroke="1"
       strokecolor="black"
     />
@@ -5116,7 +5148,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     </group>
   </group>
   <group name="Fig1"
-       description="org.argouml.uml.diagram.static_structure.ui.FigClass[368, 224, 241, 156]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
+       description="org.argouml.uml.diagram.static_structure.ui.FigClass[384, 64, 241, 156]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
        href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AE7"
        fill="1"
        fillcolor="white"
@@ -5127,8 +5159,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     </private>
     
     <rectangle name="Fig1.0"
-      x="368"
-      y="224"
+      x="384"
+      y="64"
       width="241"
       height="156"
       fill="1"
@@ -5137,8 +5169,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       strokecolor="black"
     />
     <text name="Fig1.1"
-      x="369"
-      y="225"
+      x="385"
+      y="65"
       width="239"
       height="23"
       fill="0"
@@ -5153,7 +5185,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       justification="Center"
     >JoueurService</text>
     <group name="Fig1.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[369, 225, 239, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[385, 65, 239, 0]"
          href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AE7"
          fill="0"
          fillcolor="white"
@@ -5165,8 +5197,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       </private>
       
       <rectangle name="Fig1.2.0"
-        x="369"
-        y="225"
+        x="385"
+        y="65"
         width="239"
         height="0"
         fill="0"
@@ -5176,8 +5208,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       />
     </group>
     <rectangle name="Fig1.3"
-      x="368"
-      y="248"
+      x="384"
+      y="88"
       width="241"
       height="1"
       fill="1"
@@ -5186,7 +5218,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       strokecolor="black"
     />
     <group name="Fig1.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[369, 249, 239, 45]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[385, 89, 239, 45]"
          href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AE7"
          fill="0"
          fillcolor="white"
@@ -5197,8 +5229,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       </private>
       
       <rectangle name="Fig1.4.0"
-        x="369"
-        y="249"
+        x="385"
+        y="89"
         width="239"
         height="45"
         fill="0"
@@ -5208,8 +5240,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       />
     </group>
     <rectangle name="Fig1.5"
-      x="368"
-      y="294"
+      x="384"
+      y="134"
       width="241"
       height="1"
       fill="1"
@@ -5218,7 +5250,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       strokecolor="black"
     />
     <group name="Fig1.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[369, 295, 239, 83]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[385, 135, 239, 83]"
          href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AE7"
          fill="0"
          fillcolor="white"
@@ -5229,8 +5261,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       </private>
       
       <rectangle name="Fig1.6.0"
-        x="369"
-        y="295"
+        x="385"
+        y="135"
         width="239"
         height="83"
         fill="0"
@@ -5239,8 +5271,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
         strokecolor="black"
       />
       <text name="Fig1.6.1"
-        x="369"
-        y="295"
+        x="385"
+        y="135"
         width="239"
         height="17"
         fill="0"
@@ -5255,8 +5287,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
         justification="Left"
       >rejoindrePartie(nomJoueur,avatar,idPartie)</text>
       <text name="Fig1.6.2"
-        x="369"
-        y="312"
+        x="385"
+        y="152"
         width="239"
         height="17"
         fill="0"
@@ -5271,8 +5303,8 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
         justification="Left"
       >listerNbCartesParJoueur(partieId) : List</text>
       <text name="Fig1.6.3"
-        x="369"
-        y="329"
+        x="385"
+        y="169"
         width="239"
         height="23"
         fill="0"
@@ -5289,7 +5321,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     </group>
   </group>
   <group name="Fig2"
-       description="org.argouml.uml.diagram.static_structure.ui.FigClass[656, 224, 229, 80]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
+       description="org.argouml.uml.diagram.static_structure.ui.FigClass[656, 88, 229, 80]pathVisible=false;stereotypeView=0;operationsVisible=true;attributesVisible=true;"
        href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AF3"
        fill="1"
        fillcolor="white"
@@ -5301,7 +5333,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     
     <rectangle name="Fig2.0"
       x="656"
-      y="224"
+      y="88"
       width="229"
       height="80"
       fill="1"
@@ -5311,7 +5343,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     />
     <text name="Fig2.1"
       x="657"
-      y="225"
+      y="89"
       width="227"
       height="23"
       fill="0"
@@ -5326,7 +5358,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       justification="Center"
     >CarteService</text>
     <group name="Fig2.2"
-         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[657, 225, 227, 0]"
+         description="org.argouml.uml.diagram.ui.FigStereotypesGroup[657, 89, 227, 0]"
          href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AF3"
          fill="0"
          fillcolor="white"
@@ -5339,7 +5371,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       
       <rectangle name="Fig2.2.0"
         x="657"
-        y="225"
+        y="89"
         width="227"
         height="0"
         fill="0"
@@ -5350,7 +5382,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     </group>
     <rectangle name="Fig2.3"
       x="656"
-      y="248"
+      y="112"
       width="229"
       height="1"
       fill="1"
@@ -5359,7 +5391,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       strokecolor="black"
     />
     <group name="Fig2.4"
-         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[657, 249, 227, 24]"
+         description="org.argouml.uml.diagram.ui.FigAttributesCompartment[657, 113, 227, 24]"
          href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AF3"
          fill="0"
          fillcolor="white"
@@ -5371,7 +5403,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       
       <rectangle name="Fig2.4.0"
         x="657"
-        y="249"
+        y="113"
         width="227"
         height="24"
         fill="0"
@@ -5382,7 +5414,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
     </group>
     <rectangle name="Fig2.5"
       x="656"
-      y="273"
+      y="137"
       width="229"
       height="1"
       fill="1"
@@ -5391,7 +5423,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       strokecolor="black"
     />
     <group name="Fig2.6"
-         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[657, 274, 227, 28]"
+         description="org.argouml.uml.diagram.ui.FigOperationsCompartment[657, 138, 227, 28]"
          href="10--118-100-36-4dc3ad73:163fe352c18:-8000:0000000000000AF3"
          fill="0"
          fillcolor="white"
@@ -5403,7 +5435,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       
       <rectangle name="Fig2.6.0"
         x="657"
-        y="274"
+        y="138"
         width="227"
         height="28"
         fill="0"
@@ -5413,7 +5445,7 @@ Associe ce joueur à la partie, initie son ordre, associe nom et avatar, etat</t
       />
       <text name="Fig2.6.1"
         x="657"
-        y="274"
+        y="138"
         width="227"
         height="23"
         fill="0"
@@ -6802,7 +6834,7 @@ des joueurs de la partie</text>
     />
   </group>
   <group name="Fig1"
-       description="org.argouml.uml.diagram.state.ui.FigFinalState[920, 88, 24, 24]pathVisible=false;stereotypeView=0;"
+       description="org.argouml.uml.diagram.state.ui.FigFinalState[176, 408, 24, 24]pathVisible=false;stereotypeView=0;"
        href="10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B41"
        fill="1"
        fillcolor="white"
@@ -6813,8 +6845,8 @@ des joueurs de la partie</text>
     </private>
     
     <ellipse name="Fig1.0"
-      x="932"
-      y="100"
+      x="188"
+      y="420"
       rx="12"
       ry="12"
       fill="0"
@@ -6823,8 +6855,8 @@ des joueurs de la partie</text>
       strokecolor="black"
     />
     <ellipse name="Fig1.1"
-      x="932"
-      y="100"
+      x="188"
+      y="420"
       rx="12"
       ry="12"
       fill="1"
@@ -6833,8 +6865,8 @@ des joueurs de la partie</text>
       strokecolor="black"
     />
     <ellipse name="Fig1.2"
-      x="931"
-      y="99"
+      x="187"
+      y="419"
       rx="7"
       ry="7"
       fill="1"
@@ -7150,7 +7182,7 @@ des joueurs de la partie</text>
                         offset="10" />
     </private>
     <path name="Fig6.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -7181,7 +7213,7 @@ des joueurs de la partie</text>
                         offset="10" />
     </private>
     <path name="Fig7.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -7212,7 +7244,7 @@ des joueurs de la partie</text>
                         offset="10" />
     </private>
     <path name="Fig8.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -7243,7 +7275,7 @@ des joueurs de la partie</text>
                         offset="10" />
     </private>
     <path name="Fig9.0"
-      description="org.tigris.gef.presentation.FigPoly"
+      description="org.argouml.gefext.ArgoFigPoly"
       fill="0"
       fillcolor="white"
       stroke="1"
@@ -7255,6 +7287,41 @@ des joueurs de la partie</text>
               y="249" />
     </path>
   </group>
+  <group name="Fig10"
+       description="org.argouml.uml.diagram.state.ui.FigTransition"
+       href="10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B59"
+       stroke="1"
+       strokecolor="51 51 153"
+  >
+    <private>
+      sourcePortFig="Fig3.0"
+      destPortFig="Fig1.0"
+      sourceFigNode="Fig3"
+      destFigNode="Fig1"
+      <argouml:pathitem figname="Fig10.1"
+                        classname="org.argouml.uml.diagram.ui.PathItemPlacement"
+                        figclassname="org.argouml.uml.diagram.ui.FigNameWithAbstract"
+                        ownerhref="10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B59"
+                        angle="270.0"
+                        offset="10" />
+    </private>
+    <path name="Fig10.0"
+      description="org.argouml.gefext.ArgoFigPoly"
+      fill="0"
+      fillcolor="white"
+      stroke="1"
+      strokecolor="51 51 153"
+    >
+      <moveto x="187"
+              y="354" />
+      <lineto x="187"
+              y="408" />
+    </path>
+  </group>
+</pgml>
+<pgml description="org.argouml.uml.diagram.activity.ui.UMLActivityDiagram|10--118-100-36-50fc6c72:16411da2af9:-8000:0000000000000B5A"
+      name="détermineJoueurSuivant"
+>
 </pgml>
 <todo>
 <todolist>

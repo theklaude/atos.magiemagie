@@ -22,7 +22,6 @@ public class JoueurService {
     private PartieDAO partieDAO = new PartieDAO();
     private CarteService carteServ = new CarteService();
     private CarteDAO carteDAO = new CarteDAO();
-           
 
     public Joueur rejoindrePartie(String pseudo, String avatar, long idPartie) {
         //Recherche si joueur existe déjà
@@ -45,7 +44,7 @@ public class JoueurService {
         List<Joueur> listeJoueurs = partie.getJoueurs();
         listeJoueurs.add(joueur);
 
-        if (joueur.getIdJoueur() == null) {
+        if (joueur.getId() == null) {
             joueurDAO.ajouter(joueur);
         } else {
             joueurDAO.modifier(joueur);
@@ -53,22 +52,10 @@ public class JoueurService {
         return joueur;
     }
 
-    public void joueurSuiv(Long partieId, Long idJoueur){
-       Partie p;
-       Joueur j = null;
-       if (j.getEtatJoueur()=="A_LA_MAIN"){
-           
-       }
-       
-        
-        
-    }
-    public void passerMain(long idJoueur){
-        
+    public void passerMain(long idJoueur) {
+
         carteServ.distribuerUneCarteAleatoirement(idJoueur);
 
-        
-        
     }
-    
+
 }
