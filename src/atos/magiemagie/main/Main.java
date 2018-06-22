@@ -38,12 +38,14 @@ public class Main {
             choix = s.nextLine();
 
             switch (choix) {
+                
                 case "1":
                     System.out.println("Comment voulez-vous nommer votre partie ?");
                     String nomPartie = s.nextLine();
                     partieService.creerNouvellePartie(nomPartie);
                     System.out.println(nomPartie + ": partie crée !");
                     break;
+                
                 case "2":
                     List<Partie> partiesNonDemarrees = partieService.listerPartieNonDemarees();
                     System.out.println("Liste des parties non démarrées : ");
@@ -56,10 +58,9 @@ public class Main {
                     String pseudo = s.nextLine();
                     System.out.println("Entrez votre avatar: ");
                     String avatar = s.nextLine();
-                    
                     joueurService.rejoindrePartie(pseudo, avatar, idPartie);
-
                     break;
+                
                 case "3":
                     partiesNonDemarrees = partieService.listerPartieNonDemarees();
                     System.out.println("Liste des parties non démarrées : ");
@@ -70,8 +71,10 @@ public class Main {
                     idPartie = new Long(s.nextLine());
                     partieService.demarrerPartie(idPartie);
                     break;
+                
                 case "Q":
                     break;
+                
                 default:
                     System.out.println("Choix inconnu");
                     break;

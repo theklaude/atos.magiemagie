@@ -8,10 +8,14 @@ package atos.magiemagie.service;
 import atos.magiemagie.dao.JoueurDAO;
 import atos.magiemagie.dao.PartieDAO;
 import atos.magiemagie.entity.Carte;
+import atos.magiemagie.entity.Carte.Ingredients;
 import atos.magiemagie.entity.Joueur;
 import atos.magiemagie.entity.Partie;
 import atos.magiemagie.entity.Partie.Sort;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -24,42 +28,69 @@ public class PartieService {
     private CarteService carteServ = new CarteService();
 
     public Sort choixSort(Carte.Ingredients ing1, Carte.Ingredients ing2) {
+
         Sort s = null;
-        if (ing1 == Carte.Ingredients.CORNE_LICORNE && ing2 == Carte.Ingredients.BAVE_CRAPAUD) {
+
+        List<Ingredients> combinaison = new ArrayList<>();
+        combinaison.add(ing1);
+        combinaison.add(ing2);
+
+        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.BAVE_CRAPAUD))) {
             s = Sort.INVISIBILITE;
         }
-        if (ing1 == Carte.Ingredients.CORNE_LICORNE && ing2 == Carte.Ingredients.MANDRAGORE) {
+//        if (combinaison.contains(Carte.Ingredients.CORNE_LICORNE) && combinaison.contains(Carte.Ingredients.BAVE_CRAPAUD)) {
+//            s = Sort.INVISIBILITE;
+//        }
+        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.MANDRAGORE))) {
             s = Sort.PHILTRE_AMOUR;
         }
-        if (ing1 == Carte.Ingredients.BAVE_CRAPAUD && ing2 == Carte.Ingredients.LAPIS_LAZULI) {
+        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.BAVE_CRAPAUD, Carte.Ingredients.LAPIS_LAZULI))) {
             s = Sort.HYPNOSE;
         }
-        if (ing1 == Carte.Ingredients.LAPIS_LAZULI && ing2 == Carte.Ingredients.AILE_CHAUVE_SOURIS) {
+        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.LAPIS_LAZULI, Carte.Ingredients.AILE_CHAUVE_SOURIS))) {
             s = Sort.DIVINATION;
         }
-        if (ing1 == Carte.Ingredients.MANDRAGORE && ing2 == Carte.Ingredients.AILE_CHAUVE_SOURIS) {
+
+        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.MANDRAGORE, Carte.Ingredients.AILE_CHAUVE_SOURIS))) {
             s = Sort.SOMMEIL_PROFOND;
         }
         return s;
 
     }
 
-    public void lanceSort(long idLanceur, Long idVictime, Sort s) {
+    public void lanceSort(long idPartie, long idLanceur, Long idVictime, Sort s) {
+        Partie p = pdao.recherchePartieId(idPartie);
+
         switch (s) {
-            case INVISIBILITE: //tu prend une carte(au hasard) chez tous ses adversaires
-                
+            //tu prend une carte(au hasard) chez tous ses adversaires
+            case INVISIBILITE:
+                for (int i = 0; i <= p.getJoueurs().size(); i++) {
+                    carteServ.prendreUneCarteAleatoirement(idLanceur, p.getJoueurs().get(i).getId());
+                }
                 break;
-            case PHILTRE_AMOUR: //le joueur de votre choix vous donne la moitié de ses cartes(au hasard). S’il ne possède qu’une carte il a perdu
-                
+            //le joueur de votre choix vous donne la moitié de ses cartes(au hasard). 
+            //S’il ne possède qu’une carte il a perdu
+            case PHILTRE_AMOUR:
+                carteServ.sortPhiltreAmour(idLanceur, idVictime);
+                break;
+            //tu échanges une carte de son choix contre trois cartes(au hasard) de la victime que tu choisis
+            case HYPNOSE:
+
+                Joueur lanceur = jdao.rechercherParId(idLanceur);
+                do {
+                    Carte c;
+                    Scanner scan = new Scanner(System.in);
+                    System.out.println("Laquelle de vos cartes, vous voulez échanger?  ");
+                    c = scan.nextLine();
+                } while (lanceur.getCartes().contains(c)) == true);
+                carteServ.sortHypnose(idLanceur, c, idVictime);
+                break;
+            //tu peux voir les cartes de tous les autres joueurs
+            case DIVINATION:
 
                 break;
-            case HYPNOSE: //tu échanges une carte de son choix contre trois cartes(au hasard) de la victime que tu choisis
-
-                break;
-            case DIVINATION: //tu peux voir les cartes de tous les autres joueurs
-
-                break;
-            case SOMMEIL_PROFOND: //tu choisis une victime qui ne pourra pas lancer de sorts pendant 2 tours
+            //tu choisis une victime qui ne pourra pas lancer de sorts pendant 2 tours
+            case SOMMEIL_PROFOND:
 
                 break;
             default:
@@ -67,13 +98,8 @@ public class PartieService {
                 break;
 
         }
-    
 
-    
-
-    
-
-    
+    }
 
     public void passeJoueurSuivant(long idPartie) {
 
@@ -175,10 +201,6 @@ public class PartieService {
         return p;
     }
 
-    /**
-     *
-     * @return
-     */
     public List<Partie> listerPartieNonDemarees() {
 
         return pdao.listerPartieNonDemarrees();

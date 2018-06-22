@@ -9,6 +9,7 @@ import atos.magiemagie.dao.CarteDAO;
 import atos.magiemagie.dao.JoueurDAO;
 import atos.magiemagie.entity.Carte;
 import atos.magiemagie.entity.Joueur;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,16 +31,55 @@ public class CarteService {
         carteDao.ajouterCarte(c);
 
     }
-    
-    public void prendreUneCarteAleatoirement(long jLanceur, long jVictime) {
-        Joueur j = dao.rechercherParId(joueurId);
-        Carte c = new Carte();
-        int pick = new Random().nextInt(c.typeCarte.values().length);
-        c.setTypeCarte(Carte.Ingredients.values()[pick]);
-        j.getCartes().add(c);
-        c.setJoueur(j);
-        carteDao.ajouterCarte(c);
+
+    public void prendreUneCarteAleatoirement(long idLanceur, long idVictime) {
+        Joueur lanceur = dao.rechercherParId(idLanceur);
+        Joueur victime = dao.rechercherParId(idVictime);
+
+        ajouterUneCarte(RecupCarteAleatoireChezJoueur(victime), lanceur);
 
     }
+
+    //le joueur de votre choix vous donne la moitié de ses cartes(au hasard). 
+    //S’il ne possède qu’une carte il a perdu
+    public void sortPhiltreAmour(long idLanceur, long idVictime) {
+        Joueur lanceur = dao.rechercherParId(idLanceur);
+        Joueur victime = dao.rechercherParId(idVictime);
+
+        int nbreCarte = (victime.getCartes().size()) / 2;
+
+        for (int i = 1; i <= nbreCarte; i++) {
+            ajouterUneCarte(RecupCarteAleatoireChezJoueur(victime), lanceur);
+        }
+
+    }
+
+    //tu échanges une carte de son choix contre trois cartes(au hasard) de la victime que tu choisis
+    public void sortHypnose(long idLanceur, Carte c, Long idVictime) {
+        Joueur lanceur = dao.rechercherParId(idLanceur);
+        Joueur victime = dao.rechercherParId(idVictime);
+        for (int i = 1; i <= 3; i++) {
+            ajouterUneCarte(RecupCarteAleatoireChezJoueur(victime), lanceur);
+        }
+        ajouterUneCarte(c,victime);
+    }
+
+    public List listerCarte(long idJoueur){
+        Joueur j = dao.rechercherParId(idJoueur);
+        return j.getCartes();
+    }
+    private Carte RecupCarteAleatoireChezJoueur(Joueur joueur) {
+        Random randomizer = new Random();
+        List<Carte> cartesVictime = joueur.getCartes();
+        return cartesVictime.get(randomizer.nextInt(cartesVictime.size()));
+    }
+
+    private void ajouterUneCarte(Carte c, Joueur j) {
+        j.getCartes().add(c);
+        c.setJoueur(j);
+        carteDao.updateCarte(c);
+    }
+    
+    
 
 }
