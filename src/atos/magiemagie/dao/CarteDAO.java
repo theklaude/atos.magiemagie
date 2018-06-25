@@ -28,5 +28,11 @@ public class CarteDAO {
         em.merge(c);
         em.getTransaction().commit();
     }
+
+    public Carte rechercherCarteparId(long idCarte) {
+         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+         return em.find(Carte.class, idCarte);
+        
+    }
     
 }

@@ -104,7 +104,7 @@ public class Main {
 
             if (joueurALaMain.getId() == idJoueurLanceur) { //a moi de jouer
                 System.out.println("*******************************************************");
-                System.out.println("** Choisissez la première carte que vous voulez jeter**");
+                System.out.println("** Choisissez les cartes que vous voulez jeter**");
                 System.out.println("*******************************************************");
                 System.out.println("*********** [1] CORNE LICORNE *************************");
                 System.out.println("*********** [2] BAVE CRAPAUD **************************");
@@ -114,18 +114,11 @@ public class Main {
                 System.out.println("*******************************************************");
                 System.out.println("************************************* Première carte > ");
                 String carte1 = new Scanner(System.in).nextLine();
-                
-                System.out.println("*******************************************************");
-                System.out.println("** Choisissez la deuxième carte que vous voulez jeter**");
-                System.out.println("*******************************************************");
-                System.out.println("*********** [1] CORNE LICORNE *************************");
-                System.out.println("*********** [2] BAVE CRAPAUD **************************");
-                System.out.println("*********** [3] MANDRAGORE ****************************");
-                System.out.println("*********** [4] AILE CHAUVE SOURIS ********************");
-                System.out.println("*********** [5] LAPIS LAZULI **************************");
-                System.out.println("*******************************************************");
                 System.out.println("************************************* Deuxième carte > ");
                 String carte2 = new Scanner(System.in).nextLine();
+                
+           
+                
                 
                 
                 String choix = new Scanner(System.in).nextLine();

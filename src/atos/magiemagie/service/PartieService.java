@@ -5,6 +5,7 @@
  */
 package atos.magiemagie.service;
 
+import atos.magiemagie.dao.CarteDAO;
 import atos.magiemagie.dao.JoueurDAO;
 import atos.magiemagie.dao.PartieDAO;
 import atos.magiemagie.entity.Carte;
@@ -24,16 +25,19 @@ import java.util.Scanner;
 public class PartieService {
 
     private PartieDAO pdao = new PartieDAO();
+    private CarteDAO cdao = new CarteDAO();
     private JoueurDAO jdao = new JoueurDAO();
     private CarteService carteServ = new CarteService();
 
-    public Sort choixSort(Carte.Ingredients ing1, Carte.Ingredients ing2) {
+    public Sort choixSort(long idCarte1, long idCarte2) {
 
+        Carte c1=cdao.rechercherCarteparId(idCarte1);
+        Carte c2=cdao.rechercherCarteparId(idCarte2);
         Sort s = null;
 
         List<Ingredients> combinaison = new ArrayList<>();
-        combinaison.add(ing1);
-        combinaison.add(ing2);
+        combinaison.add(c1.getTypeCarte());
+        combinaison.add(c2.getTypeCarte());
 
         if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.BAVE_CRAPAUD))) {
             s = Sort.INVISIBILITE;
