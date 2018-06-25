@@ -9,6 +9,7 @@ import atos.magiemagie.dao.CarteDAO;
 import atos.magiemagie.dao.JoueurDAO;
 import atos.magiemagie.entity.Carte;
 import atos.magiemagie.entity.Joueur;
+import atos.magiemagie.entity.Partie;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ public class CarteService {
 
     private JoueurDAO dao = new JoueurDAO();
     private CarteDAO carteDao = new CarteDAO();
+    private PartieService partieServ = new PartieService();
 
     public void distribuerUneCarteAleatoirement(long joueurId) {
         Joueur j = dao.rechercherParId(joueurId);
@@ -61,13 +63,27 @@ public class CarteService {
         for (int i = 1; i <= 3; i++) {
             ajouterUneCarte(RecupCarteAleatoireChezJoueur(victime), lanceur);
         }
-        ajouterUneCarte(c,victime);
+        ajouterUneCarte(c, victime);
     }
 
-    public List listerCarte(long idJoueur){
+    public void sortDivination(long idPartie, Long idLanceur) {
+        Joueur lanceur = dao.rechercherParId(idLanceur);
+        String s = String.valueOf(idPartie);
+        Partie p = partieServ.recherchePartie(s);
+       
+        List <Joueur> jList = p.getJoueurs();
+        jList.remove(lanceur);
+        for (Joueur j:jList) {
+           listerCarte(j.getId());
+        }
+       
+    }
+
+    public List listerCarte(long idJoueur) {
         Joueur j = dao.rechercherParId(idJoueur);
         return j.getCartes();
     }
+
     private Carte RecupCarteAleatoireChezJoueur(Joueur joueur) {
         Random randomizer = new Random();
         List<Carte> cartesVictime = joueur.getCartes();
@@ -79,7 +95,4 @@ public class CarteService {
         c.setJoueur(j);
         carteDao.updateCarte(c);
     }
-    
-    
-
 }

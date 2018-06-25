@@ -21,7 +21,9 @@ public class JoueurService {
     private JoueurDAO joueurDAO = new JoueurDAO();
     private PartieDAO partieDAO = new PartieDAO();
     private CarteService carteServ = new CarteService();
+    private PartieService partieServ = new PartieService();
     private CarteDAO carteDAO = new CarteDAO();
+    
 
     public Joueur rejoindrePartie(String pseudo, String avatar, long idPartie) {
         //Recherche si joueur existe déjà
@@ -55,6 +57,7 @@ public class JoueurService {
     public void passerMain(long idJoueur) {
 
         carteServ.distribuerUneCarteAleatoirement(idJoueur);
+        partieServ.passeJoueurSuivant(idJoueur);
 
     }
 

@@ -38,9 +38,7 @@ public class PartieService {
         if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.BAVE_CRAPAUD))) {
             s = Sort.INVISIBILITE;
         }
-//        if (combinaison.contains(Carte.Ingredients.CORNE_LICORNE) && combinaison.contains(Carte.Ingredients.BAVE_CRAPAUD)) {
-//            s = Sort.INVISIBILITE;
-//        }
+
         if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.MANDRAGORE))) {
             s = Sort.PHILTRE_AMOUR;
         }
@@ -60,6 +58,7 @@ public class PartieService {
 
     public void lanceSort(long idPartie, long idLanceur, Long idVictime, Sort s) {
         Partie p = pdao.recherchePartieId(idPartie);
+        Joueur victime = jdao.rechercherParId(idVictime);
 
         switch (s) {
             //tu prend une carte(au hasard) chez tous ses adversaires
@@ -75,30 +74,25 @@ public class PartieService {
                 break;
             //tu échanges une carte de son choix contre trois cartes(au hasard) de la victime que tu choisis
             case HYPNOSE:
-
-                Joueur lanceur = jdao.rechercherParId(idLanceur);
-                do {
-                    Carte c;
-                    Scanner scan = new Scanner(System.in);
-                    System.out.println("Laquelle de vos cartes, vous voulez échanger?  ");
-                    c = scan.nextLine();
-                } while (lanceur.getCartes().contains(c)) == true);
+                Carte c = null;
                 carteServ.sortHypnose(idLanceur, c, idVictime);
                 break;
             //tu peux voir les cartes de tous les autres joueurs
             case DIVINATION:
-
+                carteServ.sortDivination(idPartie, idLanceur);
                 break;
-            //tu choisis une victime qui ne pourra pas lancer de sorts pendant 2 tours
+            //tu choisis une victime qui ne pourra pas lancer de sorts pendant un tour
             case SOMMEIL_PROFOND:
-
+                victime.setEtat(Joueur.EtatJoueur.SOMMEIL_PROFOND);
                 break;
             default:
-
                 break;
-
         }
 
+        if (victime.getCartes().isEmpty()) {
+            victime.setEtat(Joueur.EtatJoueur.PERDU);
+        }
+        passeJoueurSuivant(idPartie);
     }
 
     public void passeJoueurSuivant(long idPartie) {
@@ -204,6 +198,19 @@ public class PartieService {
     public List<Partie> listerPartieNonDemarees() {
 
         return pdao.listerPartieNonDemarrees();
+    }
+
+    public Joueur rechercherJoueurQuiALaMain(long partieId) {
+        Joueur j = null;
+
+        Partie p = pdao.recherchePartieId(partieId);
+        int nbrJ = p.getJoueurs().size();
+        for (int i = 0; i <= nbrJ; i++) {
+            if (j.getEtatJoueur()==Joueur.EtatJoueur.A_LA_MAIN) {
+                return j;
+            }
+        }
+        return null;
     }
 
 }
