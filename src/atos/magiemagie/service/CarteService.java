@@ -19,6 +19,14 @@ import java.util.Random;
  */
 public class CarteService {
 
+    private static CarteService myself = new CarteService();
+
+    public static CarteService instantiate() {
+        return myself;
+    }
+
+  
+
     private JoueurDAO dao = new JoueurDAO();
     private CarteDAO carteDao = new CarteDAO();
     private PartieService partieServ = new PartieService();
@@ -70,13 +78,13 @@ public class CarteService {
         Joueur lanceur = dao.rechercherParId(idLanceur);
         String s = String.valueOf(idPartie);
         Partie p = partieServ.recherchePartie(s);
-       
-        List <Joueur> jList = p.getJoueurs();
+
+        List<Joueur> jList = p.getJoueurs();
         jList.remove(lanceur);
-        for (Joueur j:jList) {
-           listerCarte(j.getId());
+        for (Joueur j : jList) {
+            listerCarte(j.getId());
         }
-       
+
     }
 
     public List listerCarte(long idJoueur) {

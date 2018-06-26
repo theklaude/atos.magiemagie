@@ -27,7 +27,7 @@ public class PartieService {
     private PartieDAO pdao = new PartieDAO();
     private CarteDAO cdao = new CarteDAO();
     private JoueurDAO jdao = new JoueurDAO();
-    private CarteService carteServ = new CarteService();
+    private CarteService carteServ = CarteService.instantiate();
 
     public Sort choixSort(long idCarte1, long idCarte2) {
 
@@ -43,19 +43,20 @@ public class PartieService {
             s = Sort.INVISIBILITE;
         }
 
-        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.MANDRAGORE))) {
+        else if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.CORNE_LICORNE, Carte.Ingredients.MANDRAGORE))) {
             s = Sort.PHILTRE_AMOUR;
         }
-        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.BAVE_CRAPAUD, Carte.Ingredients.LAPIS_LAZULI))) {
+        else if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.BAVE_CRAPAUD, Carte.Ingredients.LAPIS_LAZULI))) {
             s = Sort.HYPNOSE;
         }
-        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.LAPIS_LAZULI, Carte.Ingredients.AILE_CHAUVE_SOURIS))) {
+        else if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.LAPIS_LAZULI, Carte.Ingredients.AILE_CHAUVE_SOURIS))) {
             s = Sort.DIVINATION;
         }
 
-        if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.MANDRAGORE, Carte.Ingredients.AILE_CHAUVE_SOURIS))) {
+        else if (combinaison.containsAll(Arrays.asList(Carte.Ingredients.MANDRAGORE, Carte.Ingredients.AILE_CHAUVE_SOURIS))) {
             s = Sort.SOMMEIL_PROFOND;
         }
+        
         return s;
 
     }
@@ -191,6 +192,12 @@ public class PartieService {
         pdao.recherchePartieId(p.getId());
         return p;
     }
+    
+    public Partie recherchePartieParId(long Id) {
+        Partie p = new Partie();
+        pdao.recherchePartieId(Id);
+        return p;
+    }
 
     public Partie creerNouvellePartie(String nom) {
         Partie p = new Partie();
@@ -205,16 +212,7 @@ public class PartieService {
     }
 
     public Joueur rechercherJoueurQuiALaMain(long partieId) {
-        Joueur j = null;
-
-        Partie p = pdao.recherchePartieId(partieId);
-        int nbrJ = p.getJoueurs().size();
-        for (int i = 0; i <= nbrJ; i++) {
-            if (j.getEtatJoueur()==Joueur.EtatJoueur.A_LA_MAIN) {
-                return j;
-            }
-        }
-        return null;
+        return  pdao.rechercherJoueurQuiALaMain(partieId);
     }
 
 }

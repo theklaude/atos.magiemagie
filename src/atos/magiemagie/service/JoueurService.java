@@ -20,7 +20,7 @@ public class JoueurService {
 
     private JoueurDAO joueurDAO = new JoueurDAO();
     private PartieDAO partieDAO = new PartieDAO();
-    private CarteService carteServ = new CarteService();
+    private CarteService carteServ = CarteService.instantiate();
     private PartieService partieServ = new PartieService();
     private CarteDAO carteDAO = new CarteDAO();
     

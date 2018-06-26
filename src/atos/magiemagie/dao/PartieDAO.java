@@ -89,4 +89,23 @@ public class PartieDAO {
         return em.find(Partie.class, idPartie);
     }
 
+    public Joueur rechercherJoueurQuiALaMain(long partieId) {
+        try{
+            EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+
+            Query query = em.createQuery(""
+                    + "SELECT j "
+                    + "FROM Joueur j"
+                    + "     JOIN j.partie p "
+                    + "WHERE j.etatJoueur  =:etat_alamain AND p.id=:partieId ");
+
+            query.setParameter("etat_alamain", Joueur.EtatJoueur.A_LA_MAIN);
+            query.setParameter("partieId", partieId);
+
+            return (Joueur) query.getSingleResult();
+        }catch(Exception err){// Retourne null si exception dans la requête ( genre NoResultException )
+            return null;
+        }
+    }
+
 }
